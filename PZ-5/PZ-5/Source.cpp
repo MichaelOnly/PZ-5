@@ -63,7 +63,7 @@ void deleteField(price_table& table, string key); //”дал€ет поле в таблице по кл
 //‘ункции дл€ работы с итоговой таблицей таблицей 
 void QuanInsertFieldAtTable(result_table& tableR, work_field_t fieldT, price_field_t fieldP); //¬ставл€ет поле в таблицу, сохран€€ пор€док, если была найдена цена 
 void QuanInsertFieldAtTable(result_table& tableR, work_field_t fieldT); //¬ставл€ет поле в таблицу, сохран€€ пор€док, если цена не была найдена
-int getPosForFieldInsert(result_table table, work_field_t field); //ќпредел€ет позицию в таблице, в которую поле нужно вставить
+int getPosForFieldQuanInsert(result_table table, work_field_t field); //ќпредел€ет позицию в таблице, в которую поле нужно вставить
 void shiftTableFieldsFromPos(result_table& table, int pos); //—мещает пол€ в таблице, начина€ с некоторого номера, освобожда€ место дл€ вставки записи
 void printTable(result_table table); //–аспечатывает таблицу в консоль
 void printField(result_field_t field); //–аспечатывает поле таблицы в консоль
@@ -258,30 +258,24 @@ void deleteField(price_table& table, string key)
 //‘ункции дл€ работы с итоговой таблицы
 void QuanInsertFieldAtTable(result_table& tableR, work_field_t fieldT, price_field_t fieldP)
 {
-   int insert_pos = getPosForFieldInsert(tableR, fieldT); //»щем позицию дл€ вставки
-   if (fieldT.quantity != tableR.fields[insert_pos].quantity)
-   {
-      shiftTableFieldsFromPos(tableR, insert_pos); 
-      tableR.fields[insert_pos].quantity = fieldT.quantity; //¬ставл€ем все нужные элементы полей из соответствующих таблиц
-      tableR.fields[insert_pos].key = fieldT.key;
-      tableR.fields[insert_pos].name = fieldT.name;
-      tableR.fields[insert_pos].price = fieldP.price;
-   }
+   int insert_pos = getPosForFieldQuanInsert(tableR, fieldT); //»щем позицию дл€ вставки
+   shiftTableFieldsFromPos(tableR, insert_pos); 
+   tableR.fields[insert_pos].quantity = fieldT.quantity; //¬ставл€ем все нужные элементы полей из соответствующих таблиц
+   tableR.fields[insert_pos].key = fieldT.key;
+   tableR.fields[insert_pos].name = fieldT.name;
+   tableR.fields[insert_pos].price = fieldP.price;
 }
 
 void QuanInsertFieldAtTable(result_table& tableR, work_field_t fieldT)
 {
-   int insert_pos = getPosForFieldInsert(tableR, fieldT); //»щем позицию дл€ вставки
-   if (fieldT.quantity != tableR.fields[insert_pos].quantity) //¬ставл€ем все нужные элементы полей из соответствующих таблиц
-   {
-      shiftTableFieldsFromPos(tableR, insert_pos);
-      tableR.fields[insert_pos].quantity = fieldT.quantity;
-      tableR.fields[insert_pos].key = fieldT.key;
-      tableR.fields[insert_pos].name = fieldT.name;
-   }
+   int insert_pos = getPosForFieldQuanInsert(tableR, fieldT); //»щем позицию дл€ вставки                                                      
+   shiftTableFieldsFromPos(tableR, insert_pos);//¬ставл€ем все нужные элементы полей из соответствующих таблиц
+   tableR.fields[insert_pos].quantity = fieldT.quantity;
+   tableR.fields[insert_pos].key = fieldT.key;
+   tableR.fields[insert_pos].name = fieldT.name;
 }
 
-int getPosForFieldInsert(result_table table, work_field_t field) //Ѕинарный поиск места в массиве дл€ вставки
+int getPosForFieldQuanInsert(result_table table, work_field_t field) //Ѕинарный поиск места в массиве дл€ вставки
 {
    int left_search_edge = 0; //Ћевый край диапазона поиска == 0
    int right_search_edge = table.size; //ѕравый край == правый край массива + 1, так как вставить запись можем и в том числе и в самый конец таблицы
