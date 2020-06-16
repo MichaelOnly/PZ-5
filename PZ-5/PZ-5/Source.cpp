@@ -7,85 +7,85 @@
 
 using namespace std;
 
-struct field_t //Поле в таблице из файла work
+struct work_field_t //Поле в таблице из файла work
 {
    int quantity;
    string name, key;
 };
 
-struct table_t //Таблица из файла work
+struct work_table //Таблица из файла work
 {
    int size = 0;
-   field_t fields[CAPACITY];
+   work_field_t fields[CAPACITY];
 };
 
-struct field_p //Поле таблицы из файла price
+struct price_field_t //Поле таблицы из файла price
 {
    string key, price;
 };
 
-struct table_p //Таблица из файла price
+struct price_table //Таблица из файла price
 {
    int size = 0;
-   field_p fields[CAPACITY];
+   price_field_t fields[CAPACITY];
 };
 
-struct field_r //Поле итоговой таблицы
+struct result_field_t //Поле итоговой таблицы
 {
    int quantity;
    string name, key, price = "Не указана";
 };
 
-struct table_r //Итоговая таблица
+struct result_table //Итоговая таблица
 {
    int size = 0;
-   field_r fields[CAPACITY];
+   result_field_t fields[CAPACITY];
 };
 
 //Функции для работы с таблицей из файла work
-void insertFieldAtTable(table_t& table, field_t field); //Вставляет поле в таблицу, сохраняя порядок
-int getPosForFieldInsert(table_t table, field_t field); //Определяет позицию в таблице, в которую поле нужно вставить
-void shiftTableFieldsFromPos(table_t& table, int pos); //Смещает поля в таблице, начиная с некоторого номера, освобождая место для вставки записи
-void printTable(table_t table); //Распечатывает таблицу в консоль
-void printField(field_t field); //Распечатывает поле таблицы в консоль
-int getPosField(table_t table, string key); //Выдаёт позицию поля в таблице по ключу. Выдаёт -1, если ничего не нашёл
-void deleteField(table_t& table, string key); //Удаляет поле в таблице по ключу
+void insertFieldAtTable(work_table& table, work_field_t field); //Вставляет поле в таблицу, сохраняя порядок
+int getPosForFieldInsert(work_table table, work_field_t field); //Определяет позицию в таблице, в которую поле нужно вставить
+void shiftTableFieldsFromPos(work_table& table, int pos); //Смещает поля в таблице, начиная с некоторого номера, освобождая место для вставки записи
+void printTable(work_table table); //Распечатывает таблицу в консоль
+void printField(work_field_t field); //Распечатывает поле таблицы в консоль
+int getPosField(work_table table, string key); //Выдаёт позицию поля в таблице по ключу. Выдаёт -1, если ничего не нашёл
+void deleteField(work_table& table, string key); //Удаляет поле в таблице по ключу
 
 //Функции для работы с таблицей из файла price
-void insertFieldAtTable(table_p& table, field_p field); //Вставляет поле в таблицу, сохраняя порядок
-int getPosForFieldInsert(table_p table, field_p field); //Определяет позицию в таблице, в которую поле нужно вставить
-void shiftTableFieldsFromPos(table_p& table, int pos); //Смещает поля в таблице, начиная с некоторого номера, освобождая место для вставки записи
-void printTable(table_p table); //Распечатывает таблицу в консоль
-void printField(field_p field); //Распечатывает поле таблицы в консоль
-int getPosField(table_p table, string key); //Выдаёт позицию поля в таблице по ключу. Выдаёт -1, если ничего не нашёл
-void deleteField(table_p& table, string key); //Удаляет поле в таблице по ключу
+void insertFieldAtTable(price_table& table, price_field_t field); //Вставляет поле в таблицу, сохраняя порядок
+int getPosForFieldInsert(price_table table, price_field_t field); //Определяет позицию в таблице, в которую поле нужно вставить
+void shiftTableFieldsFromPos(price_table& table, int pos); //Смещает поля в таблице, начиная с некоторого номера, освобождая место для вставки записи
+void printTable(price_table table); //Распечатывает таблицу в консоль
+void printField(price_field_t field); //Распечатывает поле таблицы в консоль
+int getPosField(price_table table, string key); //Выдаёт позицию поля в таблице по ключу. Выдаёт -1, если ничего не нашёл
+void deleteField(price_table& table, string key); //Удаляет поле в таблице по ключу
 
 //Функции для работы с итоговой таблицей таблицей 
-void insertFieldAtTable(table_r& tableR, field_t fieldT, field_p fieldP); //Вставляет поле в таблицу, сохраняя порядок, если была найдена цена 
-void insertFieldAtTable(table_r& tableR, field_t fieldT); //Вставляет поле в таблицу, сохраняя порядок, если цена не была найдена
-int getPosForFieldInsert(table_r table, field_t field); //Определяет позицию в таблице, в которую поле нужно вставить
-void shiftTableFieldsFromPos(table_r& table, int pos); //Смещает поля в таблице, начиная с некоторого номера, освобождая место для вставки записи
-void printTable(table_r table); //Распечатывает таблицу в консоль
-void printField(field_r field); //Распечатывает поле таблицы в консоль
-int getPosField(table_r table, int quantity); //Выдаёт позицию поля в таблице по ключу. Выдаёт -1, если ничего не нашёл
-void deleteField(table_r& table, int quantity); //Удаляет поле в таблице по ключу
-void transformTables(table_t tableT, table_p tableP, table_r& tableR); //Преобразовывает таблицы из файлов work и price в итоговую таблицу
+void insertFieldAtTable(result_table& tableR, work_field_t fieldT, price_field_t fieldP); //Вставляет поле в таблицу, сохраняя порядок, если была найдена цена 
+void insertFieldAtTable(result_table& tableR, work_field_t fieldT); //Вставляет поле в таблицу, сохраняя порядок, если цена не была найдена
+int getPosForFieldInsert(result_table table, work_field_t field); //Определяет позицию в таблице, в которую поле нужно вставить
+void shiftTableFieldsFromPos(result_table& table, int pos); //Смещает поля в таблице, начиная с некоторого номера, освобождая место для вставки записи
+void printTable(result_table table); //Распечатывает таблицу в консоль
+void printField(result_field_t field); //Распечатывает поле таблицы в консоль
+int getPosField(result_table table, int quantity); //Выдаёт позицию поля в таблице по ключу. Выдаёт -1, если ничего не нашёл
+void deleteField(result_table& table, int quantity); //Удаляет поле в таблице по ключу
+void transformTables(work_table tableT, price_table tableP, result_table& tableR); //Преобразовывает таблицы из файлов work и price в итоговую таблицу
 
 int main()
 {
    setlocale(LC_CTYPE, "Russian");
 
    ifstream in("work.txt");
-   table_t tableT;
-   field_t fieldT;
+   work_table tableT;
+   work_field_t fieldT;
    while (in >> fieldT.key >> fieldT.name >> fieldT.quantity) //Пока не конец файла упорядоченно вставлять записи в таблицу
       insertFieldAtTable(tableT, fieldT);
 
    cout << "Таблица из файла work:" << endl; //Распечатываем таблицу work
    printTable(tableT); 
 
-   table_p tableP;
-   field_p fieldP;
+   price_table tableP;
+   price_field_t fieldP;
    ifstream fin("price.txt");
    while(fin >> fieldP.key >> fieldP.price) //Пока не конец файла упорядоченно вставлять записи в таблицу
       insertFieldAtTable(tableP, fieldP);
@@ -93,7 +93,7 @@ int main()
    cout << "Таблица из файла price:" << endl; //Распечатываем таблицу price
    printTable(tableP);
 
-   table_r tableR;
+   result_table tableR;
    transformTables(tableT, tableP, tableR); //Преобразуем таблицы work и price в итоговую таблицу
 
    cout << "Итоговая таблица:" << endl; //Выводим итоговую таблицу для проверки
@@ -103,7 +103,7 @@ int main()
 
 
 //Описание функций для работы с таблицей из файла work
-void insertFieldAtTable(table_t& table, field_t field)
+void insertFieldAtTable(work_table& table, work_field_t field)
 {
    int insert_pos = getPosForFieldInsert(table, field);
    if (field.key.compare(table.fields[insert_pos].key) == 0) //При коллизиции прибавим quantity
@@ -115,7 +115,7 @@ void insertFieldAtTable(table_t& table, field_t field)
    }
 }
 
-int getPosForFieldInsert(table_t table, field_t field) //Бинарный поиск места в массиве для вставки
+int getPosForFieldInsert(work_table table, work_field_t field) //Бинарный поиск места в массиве для вставки
 {
    int left_search_edge = 0; //Левый край диапазона поиска == 0
    int right_search_edge = table.size; //Правый край == правый край массива + 1, так как вставить запись можем и в том числе и в самый конец таблицы
@@ -130,25 +130,25 @@ int getPosForFieldInsert(table_t table, field_t field) //Бинарный поиск места в 
    return left_search_edge; //Не важно какой край возвращать
 }
 
-void shiftTableFieldsFromPos(table_t& table, int insert_pos)
+void shiftTableFieldsFromPos(work_table& table, int insert_pos)
 {
    table.size++;
    for (int i = table.size - 1; i >= insert_pos; i--)
       table.fields[i + 1] = table.fields[i];
 }
 
-void printTable(table_t table)
+void printTable(work_table table)
 {
    for (int i = 0; i < table.size; i++)
       printField(table.fields[i]);
 }
 
-void printField(field_t field)
+void printField(work_field_t field)
 {
    cout << field.key << " " << field.name << " " << field.quantity << endl;
 }
 
-int getPosField(table_t table, string key) //Бинарный поиск поля в таблице
+int getPosField(work_table table, string key) //Бинарный поиск поля в таблице
 {
    int left_search_edge = 0; //Левый край диапазона поиска == 0
    int right_search_edge = table.size - 1; //Правый край == правый край массива
@@ -165,7 +165,7 @@ int getPosField(table_t table, string key) //Бинарный поиск поля в таблице
    return left_search_edge; //Если же равны, то не важно какой край возвращать
 }
 
-void deleteField(table_t& table, string key)
+void deleteField(work_table& table, string key)
 {
    int field_pos = getPosField(table, key);
    if (field_pos >= 0) //Если запись нашли в нашей таблице, то удаляем
@@ -180,7 +180,7 @@ void deleteField(table_t& table, string key)
 
 
 //Описание функций для работы с таблицей из фалйа price
-void insertFieldAtTable(table_p& table, field_p field)
+void insertFieldAtTable(price_table& table, price_field_t field)
 {
    int insert_pos = getPosForFieldInsert(table, field);  //Ищем позицию для вставки
    if (field.key.compare(table.fields[insert_pos].key) != 0)
@@ -190,7 +190,7 @@ void insertFieldAtTable(table_p& table, field_p field)
    }
 }
 
-int getPosForFieldInsert(table_p table, field_p field) //Бинарный поиск места в массиве для вставки
+int getPosForFieldInsert(price_table table, price_field_t field) //Бинарный поиск места в массиве для вставки
 {
    int left_search_edge = 0; //Левый край диапазона поиска == 0
    int right_search_edge = table.size; //Правый край == правый край массива + 1, так как вставить запись можем и в том числе и в самый конец таблицы
@@ -205,26 +205,26 @@ int getPosForFieldInsert(table_p table, field_p field) //Бинарный поиск места в 
    return left_search_edge; //Не важно какой край возвращать
 }
 
-void shiftTableFieldsFromPos(table_p& table, int insert_pos)
+void shiftTableFieldsFromPos(price_table& table, int insert_pos)
 {
    table.size++;
    for (int i = table.size - 1; i >= insert_pos; i--)
       table.fields[i + 1] = table.fields[i];
 }
 
-void printTable(table_p table)
+void printTable(price_table table)
 {
    for (int i = 0; i < table.size; i++)
       printField(table.fields[i]);
 }
 
-void printField(field_p field)
+void printField(price_field_t field)
 {
    cout << field.key << " " << field.price << endl;
 }
 
 
-int getPosField(table_p table, string key) //Бинарный поиск поля в таблице
+int getPosField(price_table table, string key) //Бинарный поиск поля в таблице
 {
    int left_search_edge = 0; //Левый край диапазона поиска == 0
    int right_search_edge = table.size - 1; //Правый край == правый край массива
@@ -241,7 +241,7 @@ int getPosField(table_p table, string key) //Бинарный поиск поля в таблице
    return left_search_edge; //Если же равны, то не важно какой край возвращать
 }
 
-void deleteField(table_p& table, string key)
+void deleteField(price_table& table, string key)
 {
    int field_pos = getPosField(table, key);
    if (field_pos >= 0) //Если запись нашли в нашей таблице, то удаляем
@@ -256,7 +256,7 @@ void deleteField(table_p& table, string key)
 
 
 //Функции для работы с итоговой таблицы
-void insertFieldAtTable(table_r& tableR,field_t fieldT, field_p fieldP) 
+void insertFieldAtTable(result_table& tableR, work_field_t fieldT, price_field_t fieldP)
 {
    int insert_pos = getPosForFieldInsert(tableR, fieldT); //Ищем позицию для вставки
    if (fieldT.quantity != tableR.fields[insert_pos].quantity)
@@ -269,7 +269,7 @@ void insertFieldAtTable(table_r& tableR,field_t fieldT, field_p fieldP)
    }
 }
 
-void insertFieldAtTable(table_r& tableR, field_t fieldT)
+void insertFieldAtTable(result_table& tableR, work_field_t fieldT)
 {
    int insert_pos = getPosForFieldInsert(tableR, fieldT); //Ищем позицию для вставки
    if (fieldT.quantity != tableR.fields[insert_pos].quantity) //Вставляем все нужные элементы полей из соответствующих таблиц
@@ -281,7 +281,7 @@ void insertFieldAtTable(table_r& tableR, field_t fieldT)
    }
 }
 
-int getPosForFieldInsert(table_r table, field_t field) //Бинарный поиск места в массиве для вставки
+int getPosForFieldInsert(result_table table, work_field_t field) //Бинарный поиск места в массиве для вставки
 {
    int left_search_edge = 0; //Левый край диапазона поиска == 0
    int right_search_edge = table.size; //Правый край == правый край массива + 1, так как вставить запись можем и в том числе и в самый конец таблицы
@@ -296,25 +296,25 @@ int getPosForFieldInsert(table_r table, field_t field) //Бинарный поиск места в 
    return left_search_edge; //Неважно какой край возвращать
 }
 
-void shiftTableFieldsFromPos(table_r& table, int insert_pos)
+void shiftTableFieldsFromPos(result_table& table, int insert_pos)
 {
    table.size++;
    for (int i = table.size - 1; i >= insert_pos; i--)
       table.fields[i + 1] = table.fields[i];
 }
 
-void printTable(table_r table)
+void printTable(result_table table)
 {
    for (int i = 0; i < table.size; i++)
       printField(table.fields[i]);
 }
 
-void printField(field_r field)
+void printField(result_field_t field)
 {
    cout << field.key << " " << field.name << " " << field.quantity << " " << field.price << endl;
 }
 
-int getPosField(table_r table, int quantity) //Бинарный поиск поля в таблице
+int getPosField(result_table table, int quantity) //Бинарный поиск поля в таблице
 {
    int left_search_edge = 0; //Левый край диапазона поиска == 0
    int right_search_edge = table.size - 1; //Правый край == правый край массива
@@ -331,7 +331,7 @@ int getPosField(table_r table, int quantity) //Бинарный поиск поля в таблице
    return left_search_edge; //Если же равны, то не важно какой край возвращать
 }
 
-void deleteField(table_r& table, int quantity)
+void deleteField(result_table& table, int quantity)
 {
    int field_pos = getPosField(table, quantity);
    if (field_pos >= 0) //Если запись нашли в нашей таблице, то удаляем
@@ -342,7 +342,7 @@ void deleteField(table_r& table, int quantity)
    }
 }
 
-void transformTables(table_t tableT, table_p tableP, table_r& tableR) //Функция заполнения новой таблицы
+void transformTables(work_table tableT, price_table tableP, result_table& tableR) //Функция заполнения новой таблицы
 {
    for (int i = 0; i < tableT.size; i++) //Берём каждое поле из таблицы work
    {
