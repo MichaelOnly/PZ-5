@@ -61,8 +61,8 @@ int getPosField(price_table table, string key); //Выдаёт позицию поля в таблице 
 void deleteField(price_table& table, string key); //Удаляет поле в таблице по ключу
 
 //Функции для работы с итоговой таблицей таблицей 
-void insertFieldAtTable(result_table& tableR, work_field_t fieldT, price_field_t fieldP); //Вставляет поле в таблицу, сохраняя порядок, если была найдена цена 
-void insertFieldAtTable(result_table& tableR, work_field_t fieldT); //Вставляет поле в таблицу, сохраняя порядок, если цена не была найдена
+void QuanInsertFieldAtTable(result_table& tableR, work_field_t fieldT, price_field_t fieldP); //Вставляет поле в таблицу, сохраняя порядок, если была найдена цена 
+void QuanInsertFieldAtTable(result_table& tableR, work_field_t fieldT); //Вставляет поле в таблицу, сохраняя порядок, если цена не была найдена
 int getPosForFieldInsert(result_table table, work_field_t field); //Определяет позицию в таблице, в которую поле нужно вставить
 void shiftTableFieldsFromPos(result_table& table, int pos); //Смещает поля в таблице, начиная с некоторого номера, освобождая место для вставки записи
 void printTable(result_table table); //Распечатывает таблицу в консоль
@@ -256,7 +256,7 @@ void deleteField(price_table& table, string key)
 
 
 //Функции для работы с итоговой таблицы
-void insertFieldAtTable(result_table& tableR, work_field_t fieldT, price_field_t fieldP)
+void QuanInsertFieldAtTable(result_table& tableR, work_field_t fieldT, price_field_t fieldP)
 {
    int insert_pos = getPosForFieldInsert(tableR, fieldT); //Ищем позицию для вставки
    if (fieldT.quantity != tableR.fields[insert_pos].quantity)
@@ -269,7 +269,7 @@ void insertFieldAtTable(result_table& tableR, work_field_t fieldT, price_field_t
    }
 }
 
-void insertFieldAtTable(result_table& tableR, work_field_t fieldT)
+void QuanInsertFieldAtTable(result_table& tableR, work_field_t fieldT)
 {
    int insert_pos = getPosForFieldInsert(tableR, fieldT); //Ищем позицию для вставки
    if (fieldT.quantity != tableR.fields[insert_pos].quantity) //Вставляем все нужные элементы полей из соответствующих таблиц
@@ -348,8 +348,8 @@ void transformTables(work_table tableT, price_table tableP, result_table& tableR
    {
       int price_pos = getPosField(tableP, tableT.fields[i].key); //Ищем соответсвующую ему цену в таблице price
       if (price_pos >= 0) 
-         insertFieldAtTable(tableR, tableT.fields[i], tableP.fields[price_pos]); //Если цена была найдена, то вставляем поле из таблицы work и соответсвующую ему цену
+         QuanInsertFieldAtTable(tableR, tableT.fields[i], tableP.fields[price_pos]); //Если цена была найдена, то вставляем поле из таблицы work и соответсвующую ему цену
       else 
-         insertFieldAtTable(tableR, tableT.fields[i]); //Если цена не была найдена, то вставляем поле из таблицы work, оставляя цену "Не указана" по умолчанию
+         QuanInsertFieldAtTable(tableR, tableT.fields[i]); //Если цена не была найдена, то вставляем поле из таблицы work, оставляя цену "Не указана" по умолчанию
    }
 }
