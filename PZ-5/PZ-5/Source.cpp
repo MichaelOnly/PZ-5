@@ -19,6 +19,7 @@ int main()
 
    cout << "Таблица из файла work:" << endl; //Распечатываем таблицу work
    printTable(tableT); 
+   cout << endl;
 
    price_table tableP;
    price_field_t fieldP;
@@ -28,12 +29,14 @@ int main()
 
    cout << "Таблица из файла price:" << endl; //Распечатываем таблицу price
    printTable(tableP);
+   cout << endl;
 
    result_table tableR;
    transformTables(tableT, tableP, tableR); //Преобразуем таблицы work и price в итоговую таблицу
 
    cout << "Итоговая таблица:" << endl; //Выводим итоговую таблицу для проверки
    printTable(tableR);
+   cout << endl;
 
    _getch();
    return 0;
