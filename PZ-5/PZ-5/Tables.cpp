@@ -86,6 +86,8 @@ void insertFieldAtTable(price_table& table, price_field_t field)
       shiftTableFieldsFromPos(table, insert_pos); //¬ставл€ем поле на нужную позицию
       table.fields[insert_pos] = field;
    }
+   else
+      table.fields[insert_pos].price = field.price; //обновл€ем price при коллизии
 }
 
 int getPosForFieldInsert(price_table table, price_field_t field) //Ѕинарный поиск места в массиве дл€ вставки
