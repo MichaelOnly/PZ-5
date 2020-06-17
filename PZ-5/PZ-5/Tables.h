@@ -58,12 +58,12 @@ int getPosField(price_table table, std::string key); //Выдаёт позицию поля в таб
 void deleteField(price_table& table, std::string key); //Удаляет поле в таблице по ключу
 
 //Функции для работы с итоговой таблицей таблицей 
-void QuanInsertFieldAtTable(result_table& tableR, work_field_t fieldT, price_field_t fieldP); //Вставляет поле в таблицу, сохраняя порядок(упорядочивание идёт по количеству), если была найдена цена 
-void QuanInsertFieldAtTable(result_table& tableR, work_field_t fieldT); //Вставляет поле в таблицу, сохраняя порядок(упорядочивание идёт по количеству), если цена не была найдена
+void QuanInsertFieldAtTable(result_table& tableR, work_field_t fieldW, price_field_t fieldP); //Вставляет поле в таблицу, сохраняя порядок(упорядочивание идёт по количеству), если была найдена цена 
+void QuanInsertFieldAtTable(result_table& tableR, work_field_t fieldW); //Вставляет поле в таблицу, сохраняя порядок(упорядочивание идёт по количеству), если цена не была найдена
 int getPosForFieldQuanInsert(result_table table, work_field_t field); //Определяет позицию в таблице, в которую поле нужно вставить((упорядочивание идёт по количеству))
 void shiftTableFieldsFromPos(result_table& table, int pos); //Смещает поля в таблице, начиная с некоторого номера, освобождая место для вставки записи
 void printTable(result_table table); //Распечатывает таблицу в консоль
 void printField(result_field_t field); //Распечатывает поле таблицы в консоль
 int getPosField(result_table table, int quantity); //Выдаёт позицию поля в таблице по ключу. Выдаёт -1, если ничего не нашёл
 void deleteField(result_table& table, int quantity); //Удаляет поле в таблице по ключу
-void transformTables(work_table tableT, price_table tableP, result_table& tableR); //Преобразовывает таблицы из файлов work и price в итоговую таблицу
+void transformTables(work_table tableW, price_table tableP, result_table& tableR); //Преобразовывает таблицы из файлов work и price в итоговую таблицу
