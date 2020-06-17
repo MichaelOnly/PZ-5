@@ -156,23 +156,23 @@ void deleteField(price_table& table, std::string key)
 
 
 //Функции для работы с итоговой таблицы
-void QuanInsertFieldAtTable(result_table& tableR, work_field_t fieldT, price_field_t fieldP)
+void QuanInsertFieldAtTable(result_table& tableR, work_field_t fieldW, price_field_t fieldP)
 {
-   int insert_pos = getPosForFieldQuanInsert(tableR, fieldT); //Ищем позицию для вставки
+   int insert_pos = getPosForFieldQuanInsert(tableR, fieldW); //Ищем позицию для вставки
    shiftTableFieldsFromPos(tableR, insert_pos); 
-   tableR.fields[insert_pos].quantity = fieldT.quantity; //Вставляем все нужные элементы полей из соответствующих таблиц
-   tableR.fields[insert_pos].key = fieldT.key;
-   tableR.fields[insert_pos].name = fieldT.name;
+   tableR.fields[insert_pos].quantity = fieldW.quantity; //Вставляем все нужные элементы полей из соответствующих таблиц
+   tableR.fields[insert_pos].key = fieldW.key;
+   tableR.fields[insert_pos].name = fieldW.name;
    tableR.fields[insert_pos].price = fieldP.price;
 }
 
-void QuanInsertFieldAtTable(result_table& tableR, work_field_t fieldT)
+void QuanInsertFieldAtTable(result_table& tableR, work_field_t fieldW)
 {
-   int insert_pos = getPosForFieldQuanInsert(tableR, fieldT); //Ищем позицию для вставки                                                      
+   int insert_pos = getPosForFieldQuanInsert(tableR, fieldW); //Ищем позицию для вставки                                                      
    shiftTableFieldsFromPos(tableR, insert_pos);//Вставляем все нужные элементы полей из соответствующих таблиц
-   tableR.fields[insert_pos].quantity = fieldT.quantity;
-   tableR.fields[insert_pos].key = fieldT.key;
-   tableR.fields[insert_pos].name = fieldT.name;
+   tableR.fields[insert_pos].quantity = fieldW.quantity;
+   tableR.fields[insert_pos].key = fieldW.key;
+   tableR.fields[insert_pos].name = fieldW.name;
 }
 
 int getPosForFieldQuanInsert(result_table table, work_field_t field) //Бинарный поиск места в массиве для вставки
@@ -236,14 +236,14 @@ void deleteField(result_table& table, int quantity)
    }
 }
 
-void transformTables(work_table tableT, price_table tableP, result_table& tableR) //Функция заполнения новой таблицы
+void transformTables(work_table tableW, price_table tableP, result_table& tableR) //Функция заполнения новой таблицы
 {
-   for (int i = 0; i < tableT.size; i++) //Берём каждое поле из таблицы work
+   for (int i = 0; i < tableW.size; i++) //Берём каждое поле из таблицы work
    {
-      int price_pos = getPosField(tableP, tableT.fields[i].key); //Ищем соответсвующую ему цену в таблице price
+      int price_pos = getPosField(tableP, tableW.fields[i].key); //Ищем соответсвующую ему цену в таблице price
       if (price_pos >= 0) 
-         QuanInsertFieldAtTable(tableR, tableT.fields[i], tableP.fields[price_pos]); //Если цена была найдена, то вставляем поле из таблицы work и соответсвующую ему цену
+         QuanInsertFieldAtTable(tableR, tableW.fields[i], tableP.fields[price_pos]); //Если цена была найдена, то вставляем поле из таблицы work и соответсвующую ему цену
       else 
-         QuanInsertFieldAtTable(tableR, tableT.fields[i]); //Если цена не была найдена, то вставляем поле из таблицы work, оставляя цену "Не указана" по умолчанию
+         QuanInsertFieldAtTable(tableR, tableW.fields[i]); //Если цена не была найдена, то вставляем поле из таблицы work, оставляя цену "Не указана" по умолчанию
    }
 }
